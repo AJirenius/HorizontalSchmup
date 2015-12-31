@@ -1,0 +1,10 @@
+local hashes = require "main.hashes"
+
+function on_message(self, message_id, message, sender)
+    if message_id == hash("collision_response") and message.group == hashes.group_player_bullets then
+    	local url = msg.url(message.other_id)
+    	url.fragment = "script"
+    	local amount = go.get(url, hash("damage"))
+    	msg.post(".", hashes.decrease_health, { amount = amount  })
+    end
+end

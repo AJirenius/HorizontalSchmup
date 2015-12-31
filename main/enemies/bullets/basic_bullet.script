@@ -1,0 +1,25 @@
+go.property("direction", vmath.vector3(0,0,0))
+go.property("speed", 200)
+go.property("damage",2)
+
+local hashes = require "main.hashes"
+
+function init(self)
+    self.direction = vmath.normalize(self.direction)
+end
+
+function update(self, dt)
+    local pos = go.get_position()
+    if pos.x < 0 or pos.x > 400 or pos.y < 0 or pos.y > 300 then 
+    	go.delete()
+    else
+   		pos = pos + self.direction * self.speed * dt
+    	go.set_position(pos)
+    end
+end
+
+function on_message(self, message_id, message, sender)
+    if message_id == hash("collision_response") and message.group == hashes.group_player then
+    	go.delete()
+    end
+end

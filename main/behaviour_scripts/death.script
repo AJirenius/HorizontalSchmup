@@ -1,0 +1,11 @@
+local hashes = require "main.hashes"
+local enemy_manager = require "game.core.enemy_manager"
+
+function on_message(self, message_id, message, sender)
+ 	if message_id == hashes.kill_by_destruction then
+ 		enemy_manager.delete_enemy_by_id(go.get_id())
+    	msg.post("/multi_world_fx", hashes.basic_explosion, { position = go.get_position() } )
+    	go.delete()
+    end
+end
+

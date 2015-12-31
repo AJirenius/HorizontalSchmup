@@ -1,0 +1,12 @@
+go.property("health",1)
+local hashes = require "main.hashes"
+
+function on_message(self, message_id, message, sender)
+    if message_id == hashes.decrease_health and self.health > 0 then
+    	self.health = self.health - message.amount
+    	
+    	if self.health < 1 then
+    		msg.post("#death",hashes.kill_by_destruction)
+    	end
+    end
+end

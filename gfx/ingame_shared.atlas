@@ -1,0 +1,72 @@
+images {
+  image: "/gfx/player_bullet_1.png"
+}
+images {
+  image: "/gfx/player_bullet_2.png"
+}
+images {
+  image: "/gfx/player_bullet_3.png"
+}
+images {
+  image: "/gfx/player_3.png"
+}
+images {
+  image: "/gfx/bullet_small.png"
+}
+images {
+  image: "/fx/bullet1.png"
+}
+images {
+  image: "/fx/explo.png"
+}
+animations {
+  id: "player_up"
+  images {
+    image: "/gfx/player_3.png"
+  }
+  images {
+    image: "/gfx/player_2.png"
+  }
+  images {
+    image: "/gfx/player_1.png"
+  }
+  playback: PLAYBACK_ONCE_FORWARD
+  fps: 10
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "player_down"
+  images {
+    image: "/gfx/player_3.png"
+  }
+  images {
+    image: "/gfx/player_4.png"
+  }
+  images {
+    image: "/gfx/player_5.png"
+  }
+  playback: PLAYBACK_ONCE_FORWARD
+  fps: 10
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+animations {
+  id: "enemy_1"
+  images {
+    image: "/gfx/enemy_1_1.png"
+  }
+  images {
+    image: "/gfx/enemy_1_2.png"
+  }
+  images {
+    image: "/gfx/enemy_1_3.png"
+  }
+  playback: PLAYBACK_LOOP_PINGPONG
+  fps: 20
+  flip_horizontal: 0
+  flip_vertical: 0
+}
+margin: 1
+extrude_borders: 1
+inner_padding: 0

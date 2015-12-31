@@ -1,0 +1,21 @@
+local config = require "main.config"
+local tick_engine = require "game.core.tick_manager"
+local enemy_manager = require "game.core.enemy_manager"
+local level_manager = require "game.core.level_manager"
+local game_state = require "game.core.game_state"
+
+
+function init(self)
+	level_manager.init()
+    tick = 0
+end
+
+function update(self, dt)
+    if game_state.get_state() == game_state.STATE_PLAYING_LEVEL then 
+    	tick_engine.increase(dt) 	
+    end
+    level_manager.update()
+    enemy_manager.update()
+end
+
+

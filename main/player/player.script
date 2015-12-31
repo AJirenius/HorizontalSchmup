@@ -1,0 +1,81 @@
+local config = require "main.config"
+local hashes = require "main.hashes"
+
+go.property("max_speed",3)
+
+local speed = vmath.vector3() 
+local input = vmath.vector3()
+local acc = vmath.vector3()
+
+local anim_player_up = hash("player_up")
+local anim_player_down = hash("player_down")
+local anim_player_neutral = hash("player_3")
+local current_anim
+
+local function set_animation()
+	local anim 
+	if speed.y > 0 then
+		anim = anim_player_up
+	elseif speed.y < 0 then 
+		anim = anim_player_down
+	end
+	if input.y == 0 then
+		anim = anim_player_neutral
+	end
+	if anim == current_anim then return end
+	current_anim = anim
+	msg.post ("#sprite", "play_animation", {id = anim})
+end
+
+
+
+
+function init(self)
+    msg.post(".", "acquire_input_focus")
+end
+
+function update(self, dt)
+	
+	
+	speed = speed * config.PLAYER_FRICTION
+    speed.x = speed.x + input.x * config.PLAYER_ACCELERATION
+    speed.y = speed.y + input.y * config.PLAYER_ACCELERATION
+    if speed.x > self.max_speed then speed.x = self.max_speed end
+    if speed.x < -self.max_speed then speed.x = -self.max_speed end
+    if speed.y > self.max_speed then speed.y = self.max_speed end
+    if speed.y < -self.max_speed then speed.y = -self.max_speed end
+    
+    local pos = go.get_position()
+    pos.x = pos.x + speed.x
+    pos.y = pos.y + speed.y
+    go.set_position(pos)
+ 	set_animation()
+    
+    input.x = 0
+    input.y = 0 
+end
+
+function on_message(self, message_id, message, sender)
+    -- Add message-handling code here
+    -- Remove this function if not needed
+end
+
+function on_input(self, action_id, action)
+    if action_id == hash("up") then 
+    	input.y = input.y + 1
+    end
+    if action_id == hash("down") then
+    	input.y = input.y - 1
+    end
+    if action_id == hash("left") then
+    	input.x = input.x - 1
+    end
+    if action_id == hash("right") then
+    	input.x = input.x + 1
+    end
+    if action_id == hash("fire_primary") and action.pressed == true then
+    	local pos = go.get_position()
+    	pos.x = pos.x + 10
+    	factory.create("#factory", pos, nil, {}, 0.5)
+    end
+end

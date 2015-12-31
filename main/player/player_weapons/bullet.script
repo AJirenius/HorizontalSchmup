@@ -1,0 +1,19 @@
+go.property("speed", 1000)
+go.property("damage", 6)
+local hashes = require "main.hashes"
+
+function update(self, dt)
+    local pos = go.get_position()
+    pos.x = pos.x + self.speed * dt
+    if pos.x > 810 then 
+    	go.delete()
+    else
+    	go.set_position(pos)
+    end
+end
+
+function on_message(self, message_id, message, sender)
+    if message_id == hash("collision_response") and message.group == hashes.group_enemies then
+    	go.delete()
+    end
+end

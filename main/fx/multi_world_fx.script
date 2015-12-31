@@ -1,0 +1,8 @@
+local hashes = require "main.hashes"
+
+function on_message(self, message_id, message, sender)
+    if message_id == hashes.basic_explosion then
+    	go.set_position(message.position)
+    	particlefx.play("#basic_explosion")
+    end
+end

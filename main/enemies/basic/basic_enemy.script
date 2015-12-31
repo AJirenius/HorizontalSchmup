@@ -1,0 +1,15 @@
+go.property("fire_rate",0.005)
+local hashes = require "main.hashes"
+
+local function fire()
+	local pl_pos = go.get_position("/player")
+	local en_pos = go.get_position(".")
+	local dir = vmath.vector3(pl_pos.x - en_pos.x, pl_pos.y - en_pos.y, 0)
+	factory.create("#factory", nil, nil, { direction = dir }, 3)
+end
+
+function update(self, dt)
+    local rnd = math.random()
+    if rnd < self.fire_rate then fire() end
+end
+

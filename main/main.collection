@@ -1,38 +1,113 @@
 name: "main"
-scale_along_z: 0
-embedded_instances {
-  id: "go"
-  data: "embedded_components {\n"
-  "  id: \"sprite\"\n"
-  "  type: \"sprite\"\n"
-  "  data: \"tile_set: \\\"/main/logo.atlas\\\"\\n"
-  "default_animation: \\\"logo\\\"\\n"
-  "material: \\\"/builtins/materials/sprite.material\\\"\\n"
-  "blend_mode: BLEND_MODE_ALPHA\\n"
-  "\"\n"
-  "  position {\n"
-  "    x: 640.0\n"
-  "    y: 360.0\n"
-  "    z: 0.0\n"
-  "  }\n"
-  "  rotation {\n"
-  "    x: 0.0\n"
-  "    y: 0.0\n"
-  "    z: 0.0\n"
-  "    w: 1.0\n"
-  "  }\n"
-  "}\n"
-  ""
+instances {
+  id: "editor"
+  prototype: "/game/editor/editor.go"
   position {
-    x: 0.0
-    y: 0.0
-    z: 0.0
+    x: 342.58786
+    y: 187.06888
   }
-  rotation {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-    w: 1.0
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "enemy_factory"
+  prototype: "/main/enemies/enemy_factory.go"
+  position {
+    x: 2.4750113
+    y: 2.2249386
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "game_engine"
+  prototype: "/game/core/game_engine.go"
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "level"
+  prototype: "/level/map/level.go"
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+instances {
+  id: "multi_world_fx"
+  prototype: "/main/fx/multi_world_fx.go"
+  position {
+    x: 268.91522
+    y: 246.36633
+  }
+  scale3 {
+    x: 1.0
+    y: 0.5
+    z: 1.0
+  }
+}
+instances {
+  id: "player"
+  prototype: "/main/player/player.go"
+  position {
+    x: 77.981636
+    y: 193.06743
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+embedded_instances {
+  id: "level_par_1"
+  data: "components {\n  id: \"tilemap\"\n  component: \"/level/map/level_par_1.tilemap\"\n  position {\n    x: 0.0\n    y: 0.0\n    z: 0.0\n  }\n  rotation {\n    x: 0.0\n    y: 0.0\n    z: 0.0\n    w: 1.0\n  }\n}\n"
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+embedded_instances {
+  id: "level_par_2"
+  data: "components {\n  id: \"tilemap\"\n  component: \"/level/map/level_par_2.tilemap\"\n  position {\n    x: 0.0\n    y: 0.0\n    z: 0.0\n  }\n  rotation {\n    x: 0.0\n    y: 0.0\n    z: 0.0\n    w: 1.0\n  }\n}\n"
+  position {
+    z: -0.3
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+embedded_instances {
+  id: "level_par_3"
+  data: "components {\n  id: \"tilemap\"\n  component: \"/level/map/level_par_3.tilemap\"\n  position {\n    x: 0.0\n    y: 0.0\n    z: 0.0\n  }\n  rotation {\n    x: 0.0\n    y: 0.0\n    z: 0.0\n    w: 1.0\n  }\n}\n"
+  position {
+    z: -0.5
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+embedded_instances {
+  id: "main"
+  data: "components {\n  id: \"script\"\n  component: \"/main/main.script\"\n  position {\n    x: 0.0\n    y: 0.0\n    z: 0.0\n  }\n  rotation {\n    x: 0.0\n    y: 0.0\n    z: 0.0\n    w: 1.0\n  }\n}\n"
+  position {
+    x: 342.58786
+    y: 187.06888
   }
   scale3 {
     x: 1.0
