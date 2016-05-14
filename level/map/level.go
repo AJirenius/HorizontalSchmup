@@ -24,6 +24,7 @@ embedded_components {
   "group: \"static_bg\"\n"
   "mask: \"player\"\n"
   "mask: \"enemy_bullets\"\n"
+  "mask: \"player_bullets\"\n"
   "linear_damping: 0.0\n"
   "angular_damping: 0.0\n"
   "locked_rotation: false\n"

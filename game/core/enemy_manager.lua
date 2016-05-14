@@ -1,6 +1,7 @@
 local tick_manager = require "game.core.tick_manager"
 local spawner = require "game.core.spawner.spawner"
 local enemy_factory = require "game.enemies.enemy_factory"
+local game_state = require "game.core.game_state"
 
 local M = {}
 local last_index = 1
@@ -18,12 +19,32 @@ function M.update()
 	local tick = tick_manager.tick
 	
 	-- get new enemies that should spawn and place them in active queue
-	local objs, last_index = spawner.get_starters_between_times(tick_manager.previous_tick, tick, last_index)
-	if objs and #objs > 0 then
-		for i,v in ipairs(objs) do
-			v.enemy = enemy_factory.create(v.enemy_type)
-			active_queue[v.enemy] = v
+	if game_state.get_state() == game_state.STATE_PLAYING_LEVEL then
+		local objs, last_index = spawner.get_starters_between_times(tick_manager.previous_tick, tick, last_index)
+		if objs and #objs > 0 then
+			for i,v in ipairs(objs) do
+				v.enemy = enemy_factory.create(v.enemy_type)
+				active_queue[v.enemy] = v
+			end
 		end
+	else
+		-- is in edit mode (paused) will check for enemies in active queue to always spawn if in its lifetime.
+		local objs = spawner.get_actives_between_times(tick_manager.previous_tick, tick)
+		local already_created = false
+		if objs and #objs > 0 then
+			for i,v in ipairs(objs) do
+				already_created = false
+				for _,vv in pairs(active_queue) do
+					if vv.id == v.id then already_created = true end
+				end
+				
+				if already_created == false then 
+					v.enemy = enemy_factory.create(v.enemy_type)
+					active_queue[v.enemy] = v
+				end
+			end
+		end
+		
 	end
 	
 	-- update all active enemies

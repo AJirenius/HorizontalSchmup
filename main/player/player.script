@@ -1,7 +1,9 @@
 local config = require "main.config"
 local hashes = require "main.hashes"
+local game_state = require "game.core.game_state"
 
 go.property("max_speed",3)
+go.property("auto_fire_time",0.05)
 
 local speed = vmath.vector3() 
 local input = vmath.vector3()
@@ -11,6 +13,7 @@ local anim_player_up = hash("player_up")
 local anim_player_down = hash("player_down")
 local anim_player_neutral = hash("player_3")
 local current_anim
+local fire_auto = 0
 
 local function set_animation()
 	local anim 
@@ -36,6 +39,7 @@ end
 
 function update(self, dt)
 	
+	fire_auto = fire_auto + dt
 	
 	speed = speed * config.PLAYER_FRICTION
     speed.x = speed.x + input.x * config.PLAYER_ACCELERATION
@@ -61,6 +65,7 @@ function on_message(self, message_id, message, sender)
 end
 
 function on_input(self, action_id, action)
+    if game_state.get_state() == game_state.STATE_PAUSED then return end
     if action_id == hash("up") then 
     	input.y = input.y + 1
     end
@@ -73,9 +78,11 @@ function on_input(self, action_id, action)
     if action_id == hash("right") then
     	input.x = input.x + 1
     end
-    if action_id == hash("fire_primary") and action.pressed == true then
+    if action_id == hash("fire_primary") and fire_auto > self.auto_fire_time then -- and action.pressed == true then
+    	fire_auto = 0
     	local pos = go.get_position()
-    	pos.x = pos.x + 10
-    	factory.create("#factory", pos, nil, {}, 0.5)
+    	pos.x = pos.x + 60
+    	pos.y = pos.y + math.random()*8-4
+    	factory.create("#factory", pos, nil, {}, 0.8+math.random()*0.5)
     end
 end

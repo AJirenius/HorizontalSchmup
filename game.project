@@ -34,3 +34,6 @@ max_count = 300
 [resource]
 max_resources = 4096
 
+[particle_fx]
+max_count = 128
+

@@ -1,4 +1,4 @@
-go.property("fire_rate",0.005)
+go.property("fire_rate",0.002)
 local hashes = require "main.hashes"
 
 local function fire()

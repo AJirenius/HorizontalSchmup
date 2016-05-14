@@ -18,3 +18,15 @@ key_trigger {
   input: KEY_SPACE
   action: "fire_primary"
 }
+key_trigger {
+  input: KEY_BACKSPACE
+  action: "delete"
+}
+key_trigger {
+  input: KEY_ENTER
+  action: "pause"
+}
+mouse_trigger {
+  input: MOUSE_BUTTON_1
+  action: "mouse_1"
+}

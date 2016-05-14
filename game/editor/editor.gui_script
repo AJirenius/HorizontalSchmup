@@ -1,25 +1,36 @@
 local tick_manager = require "game.core.tick_manager"
 local config = require "main.config"
 local game_state = require "game.core.game_state"
-
-
+local path_edit = require "game.editor.path.path_edit"
+local fps = require "game.editor.fps"
+local switch_button = require "game.editor.utils.switch_button"
 
 function init(self)
     if config.EDIT_MODE == true then msg.post(".","acquire_input_focus") end
     self.tick = gui.get_node("tick")
+    self.fps = gui.get_node("fps")
+    path_edit.init(self)
+    switch_button.init()
+    self.path_btn = switch_button.create({ states = {
+    	"PATH EDITOR",
+    	"ENEMY EDITOR",
+    }})
+    
 end
 
 function update(self, dt)
     gui.set_text(self.tick, math.floor(tick_manager.tick))
-end
-
-function on_message(self, message_id, message, sender)
-    -- Add message-handling code here
-    -- Remove this function if not needed
+    --fps = (fps * 5 + 1/dt)/6
+    --gui.set_text(self.fps, math.floor(fps))
+    
+    fps.update(dt)
+    
+    path_edit.update(self, dt)
+    
 end
 
 function on_input(self, action_id, action)
-	if action_id == hash("fire_primary") and action.pressed then
+	if action_id == hash("pause") and action.pressed then
 		 
 		if game_state.get_state() == game_state.STATE_PLAYING_LEVEL then
 			game_state.set_state(game_state.STATE_PAUSED) 
@@ -30,5 +41,12 @@ function on_input(self, action_id, action)
     if game_state.get_state() == game_state.STATE_PAUSED then
     	if action_id == hash("right") then tick_manager.increase(config.EDITOR_SCRUB_SPEED) end
     	if action_id == hash("left")  then tick_manager.increase(-config.EDITOR_SCRUB_SPEED) end
+    	
+    	path_edit.on_input(self,action_id,action)
+    	
     end
+    
+    
+    
+    
 end

@@ -1,9 +1,10 @@
 local M = {}
 
-M.EDIT_MODE = false
+M.EDIT_MODE = true
 M.PLAYER_ACCELERATION = 1.5
 M.PLAYER_FRICTION = 0.8
 M.EDITOR_SCRUB_SPEED = 0.01
+
 
 return M
 

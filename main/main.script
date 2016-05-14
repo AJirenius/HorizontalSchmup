@@ -7,31 +7,69 @@ local spawner = require "game.core.spawner.spawner"
 function init(self)
 	
 	-- trying the first path with enemy
-	local path_i = paths.add({
-			get_pos = path_types.get("strict_path"),
+	local path1 = paths.add({
+			get_pos = path_types.get("sin_in_out"),
 			points = {
-				vmath.vector3(400,30,0),
-				vmath.vector3(200,230,0),
+				vmath.vector3(420,30,0),
+				vmath.vector3(200,130,0),
 				vmath.vector3(350,30,0),
-				vmath.vector3(0,150,0),
+				vmath.vector3(150,30,0),
+				vmath.vector3(350,50,0),
+				vmath.vector3(-20,150,0),
 			},
 			default_time = 3
 		})
-	local straight_forward = paths.add({
-			get_pos = path_types.get("strict_path"),
+	local path2 = paths.add({
+			get_pos = path_types.get("strict"),
 			points = {
 				vmath.vector3(400,150,0),
 				vmath.vector3(0,150,0),
 			},
 			default_time = 3
 		})
+		
+local path3 = paths.add({
+			get_pos = path_types.get("sin_in_out_vertical"),
+			points = {
+				vmath.vector3(420,150,0),
+				vmath.vector3(320,50,0),
+				vmath.vector3(220,150,0),
+				vmath.vector3(120,50,0),
+				vmath.vector3(20,150,0),
+				vmath.vector3(-80,50,0),
+			},
+			default_time = 3
+		})		
 ---[[			
-	for i = 1,10 do
+	for i = 1,50 do
 		spawner.add({
-			start_time = 1+i*0.2,
-			length = 5-i*0.3,
-			path = paths.get_path(path_i),
-			path_offset = vmath.vector3(0,i*10,0),
+			start_time = 1+i*0.04,
+			length = 3,--i*0.03,
+			path = paths.get_path(path1),
+			
+			path_offset = vmath.vector3(0,i*2,0),
+			enemy_type = "basic_enemy",
+		}, true)
+	end
+	
+	for i = 1,50 do
+		spawner.add({
+			start_time = 3+i*0.04,
+			length = 3,--i*0.03,
+			path = paths.get_path(path2),
+			
+			path_offset = vmath.vector3(0,i*2,0),
+			enemy_type = "basic_enemy",
+		}, true)
+	end
+	
+	for i = 1,50 do
+		spawner.add({
+			start_time = 5+i*0.04,
+			length = 3,--i*0.03,
+			path = paths.get_path(path3),
+			
+			path_offset = vmath.vector3(0,i*2,0),
 			enemy_type = "basic_enemy",
 		}, true)
 	end
